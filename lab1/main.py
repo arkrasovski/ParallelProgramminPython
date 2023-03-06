@@ -16,7 +16,7 @@ kek.show_eq()
 # range(1, 10, 2) # [1, 3, 5, 7, 9] 1 through 10, counting by 2s
 equations = [QeQ(random.randint(1, 100), random.randint(1, 100), random.randint(1, 100)) for i in range(10 ** 6)]
 
-size = 100
+size = 1000000
 portion = 10
 
 
@@ -24,9 +24,9 @@ def solve_eq(arr, start, end):
 
     eq = arr[int(start):int(end)]
     for i in range(0, int(end)-int(start), 1):
-        print(i)
-        time.sleep(1)
-        eq[i].show_eq()
+        #print(i)
+
+        eq[i].find_roots()
 
 # def worker(argument):
 #     print("поток замирает " + str(argument))

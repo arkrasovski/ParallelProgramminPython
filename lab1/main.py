@@ -10,7 +10,7 @@ kek.show_eq()
 # [x1, x2] = kek.find_roots()
 # print(x1, x2)
 
-size = 100000
+size = 1000000
 portion = 20
 
 # range(start, stop, step)
@@ -21,9 +21,10 @@ equations = [QeQ(random.randint(1, 100), random.randint(1, 100), random.randint(
 
 
 
-def solve_eq(arr, start, end):
+def solve_eq(arr, start, end, num):
 
     eq = arr[int(start):int(end)]
+    print(num)
     for i in eq:
         i.find_roots()
         #time.sleep(0.1)
@@ -40,7 +41,7 @@ def solve_eq(arr, start, end):
 
 def main(portion):
     threads = [
-        Thread(target=solve_eq, args=(equations, i * size / portion, size / portion * (i + 1),))
+        Thread(target=solve_eq, args=(equations, i * size / portion, size / portion * (i + 1), i))
         for i in range(0, portion)
     ]
     print(len(threads))

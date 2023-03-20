@@ -1,6 +1,7 @@
 import random
 import time
 from threading import Thread
+import matplotlib.pyplot as plt
 
 from qeqClass import QuadraticEq as QeQ
 
@@ -11,7 +12,7 @@ kek.show_eq()
 # print(x1, x2)
 
 size = 1000000
-portion = 20
+portion = 10
 
 # range(start, stop, step)
 # range(4)        # [0, 1, 2, 3] 0 through 4, excluding 4
@@ -52,8 +53,36 @@ def main(portion):
     for thread in threads:
         thread.join()
 
+
+estimate_time = []
+
+start_time = time.time()
+main(1)
+end_time = time.time()
+time_for_1thread = end_time-start_time  # время в секундах
+print("Time for 1 thread", end_time-start_time)
+
 for i in range(2, portion + 1, 2):
     start_time = time.time()
     main(i)
     end_time = time.time()
+    estimate_time.append(end_time-start_time)
     print("for ", i, " number of threads time is ", end_time-start_time)
+
+estimate_time.pop(2)
+
+xlabels = [1, *range(2, portion + 1, 2)]
+xlabels.remove(6)
+
+plt.plot(xlabels, [time_for_1thread, *estimate_time], marker="o", mfc="green", mec="yellow", color="orange") #mec - цвет обводки маркера mfc - Цвет заливки маркера
+
+plt.xlabel("Number of threads")
+plt.ylabel("Time")
+
+plt.title("Number of threads VS time")
+
+
+
+plt.xticks(xlabels) #эта штука задает масштаб по х
+
+plt.show()
